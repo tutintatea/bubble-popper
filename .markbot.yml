@@ -77,10 +77,10 @@ functionality:
 
         on('.bubble', 'transitionend', function (err, ev) {
           if (err) fail('The bubble’s popping transition never ends—double check it has a `transition`');
+          pass();
         });
 
         bubble1.dispatchEvent(ev('click'));
 
         if (!bubble1.classList.contains('is-popping')) fail('The `.is-popping` class isn’t added to the bubble when it’s clicked')
 
-        pass();
