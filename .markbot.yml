@@ -1,0 +1,86 @@
+repo: 'bubble-popper'
+
+naming: true
+restrictFileTypes: true
+liveWebsite: true
+
+git:
+  numCommits: 2
+  allCommitted: true
+  allSynced: true
+
+html:
+  - path: 'index.html'
+    valid: true
+    bestPractices: true
+    has:
+      - 'script[src*="jquery"]'
+      - 'script[src="js/main.js"]'
+      - ['script[src*="jquery"] + script[src="js/main.js"]', 'The jQuery `<script>` tag must come before the `<script>` tag for your `main.js`']
+    hasNot:
+      - ['body :not(script)', 'The `<script>` tag should be the only tag inside `<body>` — no other HTML is needed']
+
+css:
+  - path: 'css/main.css'
+    valid: true
+    bestPractices: true
+    has:
+      - ['html', 'box-sizing', 'border-box', 'The `border-box` layout model is needed for this assignment—use the `borderbox` snippet']
+      - ['*', 'box-sizing', 'inherit', 'The `border-box` layout model is needed for this assignment—use the `borderbox` snippet']
+      - ['.bubble', 'position', 'absolute']
+      - ['.bubble', 'width', '50px']
+      - ['.bubble', 'height', '50px']
+      - ['.bubble', 'background-color', 'lightblue']
+      - ['.bubble', 'border-radius', '50%']
+      - ['.bubble', 'animation']
+      - ['.bubble', 'transform']
+      - ['.bubble', 'transition']
+      - ['.is-popping']
+    search:
+      - '@keyframes'
+      - 'cubic-bezier'
+      - 'forwards'
+
+js:
+  - path: 'js/main.js'
+    valid: true
+    bestPractices: true
+    search:
+      - "var \\$body = \\$\\('body'\\)"
+      - "\\$\\('html'\\)\\.on\\('keydown', function \\(e\\) \\{"
+      - "if \\(e\\.key == ' '\\) \\{"
+      - "\\$bubble = \\$\\('<div>'\\)"
+      - "\\$bubble\\.addClass\\('bubble'\\)"
+      - "\\$bubble\\.css\\(\\{"
+      - "Math\\.random\\(\\)"
+      - "document\\.documentElement\\.clientHeight - 100"
+      - "document\\.documentElement\\.clientWidth - 100"
+      - "\\$body\\.append\\(\\$bubble\\)"
+      - "\\$body\\.on\\('click', '\\.bubble', function \\(\\) \\{"
+      - "\\$\\(this\\)\\.addClass\\('is-popping'\\)"
+
+functionality:
+  - path: 'index.html'
+    tests:
+      - |
+        let bubble1;
+        let bubble2;
+
+        $('html').dispatchEvent(ev('keydown', {key: ' '}));
+        $('html').dispatchEvent(ev('keydown', {key: ' '}));
+
+        bubble1 = $('.bubble');
+        bubble2 = $('.bubble:last-child');
+
+        if (css(bubble1).left === css(bubble2).left) fail('The `left` position of the bubble isn’t randomized.');
+        if (css(bubble1).top === css(bubble2).top) fail('The `top` position of the bubble isn’t randomized.');
+
+        on('.bubble', 'transitionend', function (err, ev) {
+          if (err) fail('The bubble’s popping transition never ends—double check it has a `transition`');
+        });
+
+        bubble1.dispatchEvent(ev('click'));
+
+        if (!bubble1.classList.contains('is-popping')) fail('The `.is-popping` class isn’t added to the bubble when it’s clicked')
+
+        pass();
