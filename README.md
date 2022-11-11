@@ -8,7 +8,7 @@
 
 This is the starter code for a step-by-step lesson. Each step is described in detail here:
 
-### [**Follow the Bubble popper step-by-step lesson ➔**](https://learn-the-web.algonquindesign.ca/courses/javascript/bubble-popper/)
+### [**Follow the Bubble popper step-by-step lesson ➔**](https://learntheweb.courses/courses/javascript/bubble-popper/)
 
 ---
 
