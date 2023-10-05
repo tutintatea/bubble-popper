@@ -17,7 +17,7 @@ html {
     transform: translate(-50%, -50%);
     transition:
       width .3s cubic-bezier(.7, -.6, .4, 1.5),
-      height: .3s cubic-bezier(.7, -.6, .4, 1.5),
+      height .3s cubic-bezier(.7, -.6, .4, 1.5),
       opacity .3s ease-out
     ;
 }
